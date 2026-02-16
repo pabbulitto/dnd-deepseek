@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — D&D Мастер</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'MedievalSharp', cursive;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e9e9e9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            border: 1px solid #4a3a4a;
+        }
+        
+        h1 {
+            font-size: 6rem;
+            margin: 0;
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255,107,107,0.5);
+            animation: glitch 3s infinite;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #4caf50;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 30px 0;
+            opacity: 0.9;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #0f3460;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .button:hover {
+            background: #1a4b7a;
+            border-color: #4caf50;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(76,175,80,0.5);
+        }
+        
+        .dice {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: roll 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg); }
+            95% { transform: skew(5deg); }
+            96% { transform: skew(-5deg); }
+            97% { transform: skew(3deg); }
+        }
+        
+        @keyframes roll {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 4rem; }
+            h2 { font-size: 1.5rem; }
+            .container { padding: 20px; margin: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dice">🎲</div>
+        <h1>404</h1>
+        <h2>Критический провал восприятия!</h2>
+        <p>
+            Ты ищешь страницу, которой не существует в этом измерении.<br>
+            Возможно, её украл дракон, или она провалилась в портал.<br>
+            Мастер советует вернуться в главный зал и начать сначала.
+        </p>
+        <a href="/" class="button">⟲ Вернуться в безопасное место</a>
+    </div>
+    
+    <script>
+        // Магия: каждые 10 секунд меняем эмодзи
+        const dice = document.querySelector('.dice');
+        const emojis = ['🎲', '⚔️', '🛡️', '🐉', '🧙', '🗡️', '🏰'];
+        let index = 0;
+        
+        setInterval(() => {
+            index = (index + 1) % emojis.length;
+            dice.textContent = emojis[index];
+            dice.style.animation = 'none';
+            dice.offsetHeight; // рефлоу
+            dice.style.animation = 'roll 2s infinite';
+        }, 3000);
+    </script>
+</body>
+</html>

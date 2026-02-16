@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>D&D Мастер: DeepSeek</title>
+    
+    <!-- Подключаем шрифты и иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Orbitron:wght@400;700&family=Creepster&display=swap" rel="stylesheet">
+    
+    <!-- Наши стили -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <!-- Для тем будем подгружать позже -->
+    <link rel="stylesheet" href="css/themes/fantasy.css" id="theme-style">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- ШАПКА -->
+        <header class="header">
+            <div class="world-info">
+                <span id="world-name">🏰 Классическое фэнтези</span>
+                <span id="character-name" class="character-name">(Безымянный)</span>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" id="settings-btn" title="Настройки">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="icon-btn" id="menu-btn" title="Меню">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ИГРОВАЯ ОБЛАСТЬ -->
+        <main class="game-area">
+            <!-- Чат -->
+            <div class="chat-container" id="chat-container">
+                <div class="messages" id="messages">
+                    <!-- Приветственное сообщение -->
+                    <div class="message dm">
+                        <div class="message-avatar">
+                            <i class="fas fa-dragon"></i>
+                        </div>
+                        <div class="message-content">
+                            Добро пожаловать в мир D&D! Выбери мир в настройках и начни приключение.
+                        </div>
+                        <div class="message-time">только что</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контекстная панель действий -->
+            <div class="action-panel" id="action-panel">
+                <!-- Сюда будут подгружаться кнопки -->
+                <button class="action-btn" disabled>⚔️ Загрузка...</button>
+            </div>
+        </main>
+
+        <!-- ПАНЕЛЬ ВВОДА -->
+        <footer class="input-panel">
+            <div class="quick-actions">
+                <button class="quick-btn" id="quick-attack" title="Атаковать">
+                    <i class="fas fa-sword"></i>
+                </button>
+                <button class="quick-btn" id="quick-look" title="Осмотреться">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="quick-btn" id="quick-talk" title="Говорить">
+                    <i class="fas fa-comment"></i>
+                </button>
+                <button class="quick-btn" id="quick-inventory" title="Инвентарь">
+                    <i class="fas fa-backpack"></i>
+                </button>
+                <button class="quick-btn dice-btn" id="roll-d20" title="Бросок d20">
+                    <i class="fas fa-dice-d20"></i>
+                </button>
+            </div>
+            
+            <div class="message-input">
+                <input type="text" id="user-input" placeholder="Твое действие (например: иду на север, беру меч, атакую гоблина)" autocomplete="off">
+                <button class="send-btn" id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК (выбор мира) -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-dragon"></i> Создание приключения</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Шаг 1: Выбор сеттинга -->
+                <div class="settings-section">
+                    <h3>🌍 Выбери мир</h3>
+                    <div class="option-grid" id="world-selector">
+                        <div class="option-card" data-world="fantasy">
+                            <div class="option-icon">🏰</div>
+                            <div class="option-name">Фэнтези</div>
+                            <div class="option-desc">Королевства, драконы, магия</div>
+                        </div>
+                        <div class="option-card" data-world="cyberpunk">
+                            <div class="option-icon">🤖</div>
+                            <div class="option-name">Киберпанк</div>
+                            <div class="option-desc">Неон, импланты, корпорации</div>
+                        </div>
+                        <div class="option-card" data-world="postapoc">
+                            <div class="option-icon">🌆</div>
+                            <div class="option-name">Постапокалипсис</div>
+                            <div class="option-desc">Пустошь, мутанты, выживание</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Шаг 2: Выбор тона (появится после выбора мира) -->
+                <div class="settings-section hidden" id="theme-section">
+                    <h3>🎭 Выбери атмосферу</h3>
+                    <div class="option-grid" id="theme-selector">
+                        <div class="option-card" data-theme="epic">
+                            <div class="option-icon">⚔️</div>
+                            <div class="option-name">Эпичная</div>
+                            <div class="option-desc">Героическая, величественная</div>
+                        </div>
+                        <div class="option-card" data-theme="humor">
+                            <div class="option-icon">😄</div>
+                            <div class="option-name">Юморная</div>
+                            <div class="option-desc">Легкая, абсурдная, смешная</div>
+                        </div>
+                        <div class="option-card" data-theme="horror">
+                            <div class="option-icon">👻</div>
+                            <div class="option-name">Хоррор</div>
+                            <div class="option-desc">Мрачная, пугающая</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Шаг 3: Имя персонажа -->
+                <div class="settings-section hidden" id="character-section">
+                    <h3>🧙 Введи имя персонажа</h3>
+                    <input type="text" id="character-name-input" placeholder="Например: Арагорн, Леголас, Гендальф" class="character-input">
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="modal-cancel">Отмена</button>
+                <button class="modal-btn primary" id="modal-start" disabled>Начать приключение!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Боковое меню (история, сохранения) -->
+    <div class="side-menu-overlay" id="side-menu">
+        <div class="side-menu">
+            <div class="side-menu-header">
+                <h3>Меню</h3>
+                <button class="icon-btn" id="menu-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="side-menu-body">
+                <div class="menu-item" id="menu-save">
+                    <i class="fas fa-save"></i> Сохранить игру
+                </div>
+                <div class="menu-item" id="menu-load">
+                    <i class="fas fa-folder-open"></i> Загрузить игру
+                </div>
+                <div class="menu-item" id="menu-history">
+                    <i class="fas fa-history"></i> История приключений
+                </div>
+                <div class="menu-item" id="menu-rules">
+                    <i class="fas fa-book"></i> Правила D&D
+                </div>
+                <div class="menu-item" id="menu-about">
+                    <i class="fas fa-info-circle"></i> О проекте
+                </div>
+                <div class="menu-item danger" id="menu-reset">
+                    <i class="fas fa-trash"></i> Сбросить всё
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем скрипты в правильном порядке -->
+    <!-- 1. Конфиги и утилиты -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    
+    <!-- 2. Промпты (базовые правила и описания миров) -->
+    <script src="prompts/base.js"></script>
+    
+    <!-- 3. Основная логика (deepseek ДО game, потому что game его использует) -->
+    <script src="js/deepseek.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <!-- 4. Запуск приложения -->
+    <script src="js/app.js"></script>
+</body>
+</html>

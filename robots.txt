@@ -1,0 +1,6 @@
+# Разрешаем всем ботам индексацию
+User-agent: *
+Allow: /
+
+# Указываем путь к карте сайта (опционально)
+Sitemap: https://твойник.github.io/dnd-deepseek/sitemap.xml
