@@ -126,7 +126,7 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    max-width: 85%;
+    max-width: 92%;
     animation: fadeIn 0.3s ease;
 }
 
@@ -592,4 +592,5 @@ body {
 .loading {
     opacity: 0.6;
     pointer-events: none;
+
 }
