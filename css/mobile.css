@@ -21,11 +21,11 @@
     }
     
     .message {
-        max-width: 90%;
+        max-width: 95%;
     }
     
     .message-content {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         padding: 8px 12px;
     }
     
@@ -102,4 +102,5 @@
     .option-icon {
         font-size: 2rem;
     }
+
 }
