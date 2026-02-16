@@ -1,0 +1,38 @@
+/* Тема: Киберпанк */
+:root {
+    --bg-dark: #0a0c12;
+    --bg-panel: #121624;
+    --bg-input: #1a1f2e;
+    --accent: #00fff9;
+    --accent-hover: #6efff9;
+    --dm-color: #ff00aa;
+    --player-color: #00ffaa;
+    --dice-color: #ffee00;
+    --text-light: #e0e0ff;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.header {
+    border-bottom-color: #00fff9;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.message.dm .message-content {
+    background: #ff00aa;
+    box-shadow: 0 0 10px #ff00aa;
+}
+
+.message.player .message-content {
+    background: #00ffaa;
+    box-shadow: 0 0 10px #00ffaa;
+    color: #000;
+}
+
+.chat-container {
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid #00fff9;
+}

@@ -1,0 +1,29 @@
+/* Тема: Классическое фэнтези */
+:root {
+    --bg-dark: #2a1e2e;
+    --bg-panel: #3d2b3d;
+    --bg-input: #4a3a4a;
+    --accent: #8b5a2b;
+    --accent-hover: #a8753a;
+    --dm-color: #2d5a27;
+    --player-color: #2b4f6e;
+    --dice-color: #c97c3b;
+}
+
+body {
+    font-family: 'MedievalSharp', cursive;
+}
+
+.header {
+    border-bottom-color: #b8860b;
+}
+
+.message.dm .message-content {
+    background: #2d5a27;
+    border-left: 3px solid gold;
+}
+
+.message.player .message-content {
+    background: #2b4f6e;
+    border-right: 3px solid silver;
+}
